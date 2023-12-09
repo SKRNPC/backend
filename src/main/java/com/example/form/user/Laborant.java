@@ -1,14 +1,13 @@
 package com.example.form.user;
 
-import com.example.form.user.validation.UniqueKimlik;
+
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import jakarta.persistence.UniqueConstraint;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.Size;
+
 
 @Entity
 @Table(name = "laborants", uniqueConstraints = @UniqueConstraint(columnNames = { "labKimlik" }))
@@ -18,12 +17,8 @@ public class Laborant {
     @GeneratedValue
     long id;
 
-    @NotBlank
     String isim;
 
-    @NotBlank
-    @Size(min = 7, max = 7)
-    @UniqueKimlik
     String labKimlik;
 
     public long getId() {

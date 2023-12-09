@@ -2,6 +2,7 @@ package com.example.form.user;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.List;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,12 +12,14 @@ import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.form.error.ApiError;
 import com.example.form.shared.GenericMessage;
+import com.example.form.user.dto.LaborantCreate;
 
 import jakarta.validation.Valid;
 
@@ -28,9 +31,15 @@ public class UserController {
 
     @CrossOrigin
     @PostMapping("/api/v1/laborants")
-    GenericMessage createLaborant(@Valid @RequestBody Laborant laborant) {
-        laborantService.save(laborant);
+    GenericMessage createLaborant(@Valid @RequestBody LaborantCreate laborant) {
+        laborantService.save(laborant.toLaborant());
         return new GenericMessage("User is created");
+    }
+
+    @CrossOrigin
+    @GetMapping("/api/v1/laborants")
+    List<Laborant> getLaborants() {
+        return laborantService.getLaborants();
     }
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
@@ -45,14 +54,15 @@ public class UserController {
         apiError.setValidationErrors(validationErrors);
         return ResponseEntity.badRequest().body(apiError);
     }
-     @ExceptionHandler(NotUniqueKimlikException.class)
-    ResponseEntity<ApiError> handleNotUniqueKimlikEx( NotUniqueKimlikException exception) {
+
+    @ExceptionHandler(NotUniqueKimlikException.class)
+    ResponseEntity<ApiError> handleNotUniqueKimlikEx(NotUniqueKimlikException exception) {
         ApiError apiError = new ApiError();
         apiError.setPath("/api/v1/laborants");
         apiError.setMessage("Validation error");
         apiError.setStatus(400);
         Map<String, String> validationErrors = new HashMap<>();
-        validationErrors.put("labKimlik","Bu Kimlik No kullanılıyor");
+        validationErrors.put("labKimlik", "Bu Kimlik No kullanılıyor");
         apiError.setValidationErrors(validationErrors);
         return ResponseEntity.badRequest().body(apiError);
     }
