@@ -2,11 +2,13 @@ package com.example.form.user;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.List;
+
 import java.util.stream.Collectors;
 
-import org.springframework.beans.factory.annotation.Autowired;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -38,8 +40,8 @@ public class UserController {
 
     @CrossOrigin
     @GetMapping("/api/v1/laborants")
-    List<Laborant> getLaborants() {
-        return laborantService.getLaborants();
+    Page<Laborant> getLaborants(Pageable page) {
+        return laborantService.getLaborants(page);
     }
 
     @ExceptionHandler(MethodArgumentNotValidException.class)

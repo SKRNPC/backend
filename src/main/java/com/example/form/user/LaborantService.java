@@ -1,9 +1,11 @@
 package com.example.form.user;
 
-import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.data.domain.Page;
+
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 
@@ -22,9 +24,8 @@ public class LaborantService {
         }
     }
 
-    public List<Laborant> getLaborants(){
-        return userRepository.findAll();
-
+    public Page<Laborant> getLaborants(Pageable page){
+        return userRepository.findAll(page);
     }
 
 }
