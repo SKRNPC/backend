@@ -5,7 +5,6 @@ import java.util.Map;
 
 import java.util.stream.Collectors;
 
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -22,10 +21,15 @@ import org.springframework.web.bind.annotation.RestController;
 import com.example.form.error.ApiError;
 import com.example.form.shared.GenericMessage;
 import com.example.form.user.dto.LaborantCreate;
+import com.example.form.user.dto.LaborantUpdate;
 import com.example.form.user.dto.UserDTO;
 
+import jakarta.persistence.EntityNotFoundException;
 import jakarta.validation.Valid;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 
+@CrossOrigin
 @RestController
 public class UserController {
 
@@ -43,6 +47,19 @@ public class UserController {
     @GetMapping("/api/v1/laborants")
     Page<UserDTO> getLaborants(Pageable page) {
         return laborantService.getLaborants(page).map(UserDTO::new);
+    }
+
+    @CrossOrigin
+    @GetMapping("/api/v1/laborants/{id}")
+    public UserDTO getLaborant(@PathVariable long id) {
+        return new UserDTO(laborantService.getLaborant(id));
+    }
+
+    @CrossOrigin
+    @PutMapping("/api/v1/laborants/{id}")
+    public UserDTO updateLaborant(@PathVariable long id, @Valid @RequestBody LaborantUpdate laborantUpdate) {
+
+        return new UserDTO(laborantService.updateLaborant(id, laborantUpdate));
     }
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
@@ -67,6 +84,15 @@ public class UserController {
         Map<String, String> validationErrors = new HashMap<>();
         validationErrors.put("labKimlik", "Bu Kimlik No kullanılıyor");
         apiError.setValidationErrors(validationErrors);
+        return ResponseEntity.badRequest().body(apiError);
+    }
+
+    @ExceptionHandler(EntityNotFoundException.class)
+    ResponseEntity<ApiError> handleEntityNotFoundExcepiton(EntityNotFoundException exception) {
+        ApiError apiError = new ApiError();
+        apiError.setPath("/api/v1/laborants");
+        apiError.setMessage("Not Found");
+        apiError.setStatus(404);
         return ResponseEntity.badRequest().body(apiError);
     }
 }
