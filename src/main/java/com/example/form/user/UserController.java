@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.example.form.error.ApiError;
 import com.example.form.shared.GenericMessage;
 import com.example.form.user.dto.LaborantCreate;
+import com.example.form.user.dto.UserDTO;
 
 import jakarta.validation.Valid;
 
@@ -40,8 +41,8 @@ public class UserController {
 
     @CrossOrigin
     @GetMapping("/api/v1/laborants")
-    Page<Laborant> getLaborants(Pageable page) {
-        return laborantService.getLaborants(page);
+    Page<UserDTO> getLaborants(Pageable page) {
+        return laborantService.getLaborants(page).map(UserDTO::new);
     }
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
