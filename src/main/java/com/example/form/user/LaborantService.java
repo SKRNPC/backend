@@ -32,16 +32,15 @@ public class LaborantService {
 
     public Laborant updateLaborant(long id, LaborantUpdate laborantUpdate) {
         Laborant inDb = getLaborant(id);
-        if (laborantUpdate.isim() != null && !laborantUpdate.isim().equals(inDb.getIsim())) {
-            inDb.setIsim(laborantUpdate.isim());
-        }
 
-        // Güncellenen labKimlik değeri null değilse ve eski değeriyle aynı değilse
-        // güncelle
-        if (!laborantUpdate.labKimlik().equals(inDb.getLabKimlik())) {
-            inDb.setLabKimlik(laborantUpdate.labKimlik());
-        }
+        inDb.setIsim(laborantUpdate.isim());
+        inDb.setLabKimlik(laborantUpdate.labKimlik());
         return userRepository.save(inDb);
+    }
+
+    public void deleteLaborant(long id) {
+
+        userRepository.deleteById(id);
     }
 
 }
