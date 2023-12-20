@@ -23,7 +23,7 @@ import com.example.form.error.ApiError;
 import com.example.form.shared.GenericMessage;
 import com.example.form.user.dto.LaborantCreate;
 import com.example.form.user.dto.LaborantUpdate;
-import com.example.form.user.dto.UserDTO;
+import com.example.form.user.dto.LaborantDTO;
 
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.validation.Valid;
@@ -32,7 +32,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 
 @CrossOrigin
 @RestController
-public class UserController {
+public class LaborantController {
 
     @Autowired
     LaborantService laborantService;
@@ -46,21 +46,21 @@ public class UserController {
 
     @CrossOrigin
     @GetMapping("/api/v1/laborants")
-    Page<UserDTO> getLaborants(Pageable page) {
-        return laborantService.getLaborants(page).map(UserDTO::new);
+    Page<LaborantDTO> getLaborants(Pageable page) {
+        return laborantService.getLaborants(page).map(LaborantDTO::new);
     }
 
     @CrossOrigin
     @GetMapping("/api/v1/laborants/{id}")
-    public UserDTO getLaborant(@PathVariable long id) {
-        return new UserDTO(laborantService.getLaborant(id));
+    public LaborantDTO getLaborant(@PathVariable long id) {
+        return new LaborantDTO(laborantService.getLaborant(id));
     }
 
     @CrossOrigin
     @PutMapping("/api/v1/laborants/{id}")
-    public UserDTO updateLaborant(@PathVariable long id, @Valid @RequestBody LaborantUpdate laborantUpdate) {
+    public LaborantDTO updateLaborant(@PathVariable long id, @Valid @RequestBody LaborantUpdate laborantUpdate) {
 
-        return new UserDTO(laborantService.updateLaborant(id, laborantUpdate));
+        return new LaborantDTO(laborantService.updateLaborant(id, laborantUpdate));
     }
 
     @CrossOrigin

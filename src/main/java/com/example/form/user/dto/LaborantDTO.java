@@ -3,14 +3,14 @@ package com.example.form.user.dto;
 import com.example.form.user.Laborant;
 
 
-public class UserDTO {
+public class LaborantDTO {
 
     long id;
 
     String isim;
 
     String labKimlik;
-    public UserDTO (Laborant laborant){
+    public LaborantDTO (Laborant laborant){
         setId(laborant.getId());
         setIsim(laborant.getIsim());
         setLabKimlik(laborant.getLabKimlik());
