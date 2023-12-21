@@ -1,9 +1,10 @@
 package com.example.form.rapor;
 
-import java.util.List;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -15,6 +16,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.form.error.ApiError;
+import com.example.form.rapor.dto.RaporCreate;
+import com.example.form.rapor.dto.RaporDTO;
 import com.example.form.shared.GenericMessage;
 
 import jakarta.validation.Valid;
@@ -26,16 +29,16 @@ public class RaporController {
 
     @CrossOrigin
     @PostMapping("/api/v1/raporlar")
-    GenericMessage createUser(@Valid @RequestBody Rapor rapor) {
+    GenericMessage createUser(@Valid @RequestBody RaporCreate rapor) {
 
-        raporService.save(rapor);
+        raporService.save(rapor.toRapor());
         return new GenericMessage("user created");
     }
 
     @CrossOrigin
     @GetMapping("/api/v1/raporlar")
-    List<Rapor> getRapors() {
-        return raporService.getRapors();
+    Page<RaporDTO> getRapors(Pageable page) {
+        return raporService.getRapors(page).map(RaporDTO::new);
     }
 
     @ExceptionHandler(MethodArgumentNotValidException.class)

@@ -1,21 +1,17 @@
-package com.example.form.rapor;
+package com.example.form.rapor.dto;
 
 import java.time.LocalDate;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
 
+import com.example.form.rapor.Rapor;
 
+public class RaporDTO {
 
-@Entity
-@Table(name = "raporlar")
-public class Rapor {
-    @Id
-    @GeneratedValue
     long id;
 
     String selectedLaborant;
+
+    
+
     String dosyaNo;
 
     String hastaIsim;
@@ -23,11 +19,26 @@ public class Rapor {
     String hastaKimlik;
 
     String hastaTani;
+
     String taniDetay;
 
     LocalDate selectedDate;
 
     String selectedFile;
+
+    public RaporDTO(Rapor rapor) {
+        setId(rapor.getId());
+        setSelectedLaborant(rapor.getSelectedLaborant());
+        setDosyaNo(rapor.getDosyaNo());
+        setHastaIsim(rapor.getHastaIsim());
+        setHastaKimlik(rapor.getHastaKimlik());
+        setHastaTani(rapor.getHastaTani());
+        setTaniDetay(rapor.getTaniDetay());
+        setSelectedDate(rapor.getSelectedDate());
+        setSelectedFile(rapor.getSelectedFile());
+    
+
+    }
 
     public String getSelectedFile() {
         return selectedFile;
@@ -91,7 +102,7 @@ public class Rapor {
 
     public void setSelectedDate(LocalDate selectedDate) {
         this.selectedDate = selectedDate;
-    } 
+    }
     public String getSelectedLaborant() {
         return selectedLaborant;
     }
@@ -99,6 +110,4 @@ public class Rapor {
     public void setSelectedLaborant(String selectedLaborant) {
         this.selectedLaborant = selectedLaborant;
     }
-
-    
 }
