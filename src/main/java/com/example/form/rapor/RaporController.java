@@ -29,9 +29,9 @@ public class RaporController {
 
     @CrossOrigin
     @PostMapping("/api/v1/raporlar")
-    GenericMessage createUser(@Valid @RequestBody RaporCreate rapor) {
+    GenericMessage createUser(@Valid @RequestBody RaporCreate raporCreate) {
 
-        raporService.save(rapor.toRapor());
+        raporService.save(raporCreate.toRapor());
         return new GenericMessage("user created");
     }
 
