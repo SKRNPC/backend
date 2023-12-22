@@ -1,6 +1,5 @@
 package com.example.form.rapor.dto;
 
-import java.time.LocalDate;
 
 import com.example.form.rapor.Rapor;
 
@@ -9,8 +8,6 @@ public class RaporDTO {
     long id;
 
     String selectedLaborant;
-
-    
 
     String dosyaNo;
 
@@ -22,7 +19,8 @@ public class RaporDTO {
 
     String taniDetay;
 
-    LocalDate selectedDate;
+    String selectedDate;
+   
 
     String selectedFile;
 
@@ -36,7 +34,6 @@ public class RaporDTO {
         setTaniDetay(rapor.getTaniDetay());
         setSelectedDate(rapor.getSelectedDate());
         setSelectedFile(rapor.getSelectedFile());
-    
 
     }
 
@@ -96,18 +93,18 @@ public class RaporDTO {
         this.hastaKimlik = hastaKimlik;
     }
 
-    public LocalDate getSelectedDate() {
-        return selectedDate;
-    }
-
-    public void setSelectedDate(LocalDate selectedDate) {
-        this.selectedDate = selectedDate;
-    }
     public String getSelectedLaborant() {
         return selectedLaborant;
     }
 
     public void setSelectedLaborant(String selectedLaborant) {
         this.selectedLaborant = selectedLaborant;
+    }
+     public String getSelectedDate() {
+        return selectedDate;
+    }
+
+    public void setSelectedDate(String selectedDate) {
+        this.selectedDate = selectedDate;
     }
 }

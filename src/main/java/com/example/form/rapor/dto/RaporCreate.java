@@ -1,7 +1,5 @@
 package com.example.form.rapor.dto;
 
-import java.time.LocalDate;
-
 import com.example.form.rapor.Rapor;
 
 import jakarta.persistence.Lob;
@@ -23,7 +21,8 @@ public record RaporCreate(
 
         String taniDetay,
 
-        LocalDate selectedDate,
+        
+        String selectedDate,
 
         @Lob String selectedFile)
 

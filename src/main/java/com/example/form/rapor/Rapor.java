@@ -1,6 +1,6 @@
 package com.example.form.rapor;
 
-import java.time.LocalDate;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
@@ -25,8 +25,9 @@ public class Rapor {
     String hastaTani;
     String taniDetay;
 
-    LocalDate selectedDate;
+    String selectedDate;
 
+    
     String selectedFile;
 
     public String getSelectedFile() {
@@ -84,14 +85,16 @@ public class Rapor {
     public void setHastaKimlik(String hastaKimlik) {
         this.hastaKimlik = hastaKimlik;
     }
-
-    public LocalDate getSelectedDate() {
+    public String getSelectedDate() {
         return selectedDate;
     }
 
-    public void setSelectedDate(LocalDate selectedDate) {
+    public void setSelectedDate(String selectedDate) {
         this.selectedDate = selectedDate;
-    } 
+    }
+
+
+ 
     public String getSelectedLaborant() {
         return selectedLaborant;
     }

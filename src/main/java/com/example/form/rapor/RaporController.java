@@ -11,15 +11,19 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.form.error.ApiError;
 import com.example.form.rapor.dto.RaporCreate;
 import com.example.form.rapor.dto.RaporDTO;
+import com.example.form.rapor.dto.RaporUpdate;
 import com.example.form.shared.GenericMessage;
 
+import jakarta.persistence.EntityNotFoundException;
 import jakarta.validation.Valid;
 
 @RestController
@@ -41,6 +45,18 @@ public class RaporController {
         return raporService.getRapors(page).map(RaporDTO::new);
     }
 
+    @CrossOrigin
+    @GetMapping("/api/v1/raporlar/{id}")
+    RaporDTO getRaporById(@PathVariable long id) {
+        return new RaporDTO(raporService.getRapor(id));
+    }
+
+    @CrossOrigin
+    @PutMapping("/api/v1/raporlar/{id}")
+    RaporDTO updateRapor(@PathVariable long id,@Valid @RequestBody RaporUpdate raporUpdate) {
+        return new RaporDTO(raporService.updateRapor(id, raporUpdate));
+    }
+
     @ExceptionHandler(MethodArgumentNotValidException.class)
     ResponseEntity<ApiError> handleMethodArgNotValidEx(MethodArgumentNotValidException exception) {
         ApiError apiError = new ApiError();
@@ -52,5 +68,14 @@ public class RaporController {
                 .toMap(FieldError::getField, FieldError::getDefaultMessage, (existing, replacing) -> existing));
         apiError.setValidationErrors(validationErrors);
         return ResponseEntity.badRequest().body(apiError);
+    }
+
+    @ExceptionHandler(EntityNotFoundException.class)
+    ResponseEntity<ApiError> handleEntityNotFoundException(EntityNotFoundException exception) {
+        ApiError apiError = new ApiError();
+        apiError.setPath("/api/v1/raporlar/{id}");
+        apiError.setMessage("Not found");
+        apiError.setStatus(404);
+        return ResponseEntity.status(404).body(apiError);
     }
 }
