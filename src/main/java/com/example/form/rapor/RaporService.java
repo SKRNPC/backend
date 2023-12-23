@@ -45,7 +45,10 @@ public class RaporService {
         inDb.setHastaTani(raporUpdate.hastaTani());
         inDb.setTaniDetay(raporUpdate.taniDetay());
         inDb.setSelectedDate(raporUpdate.selectedDate());
-        inDb.setSelectedFile(raporUpdate.selectedFile());
+        if (raporUpdate.selectedFile() != null) {
+            String fileName=fileService.saveBase64StringAsFile(raporUpdate.selectedFile());
+            inDb.setSelectedFile(fileName);
+        }
 
         return raporRepository.save(inDb);
     }
