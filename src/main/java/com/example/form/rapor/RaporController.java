@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -36,7 +37,7 @@ public class RaporController {
     GenericMessage createUser(@Valid @RequestBody RaporCreate raporCreate) {
 
         raporService.save(raporCreate.toRapor());
-        return new GenericMessage("user created");
+        return new GenericMessage("Rapor created");
     }
 
     @CrossOrigin
@@ -55,6 +56,13 @@ public class RaporController {
     @PutMapping("/api/v1/raporlar/{id}")
     RaporDTO updateRapor(@PathVariable long id,@Valid @RequestBody RaporUpdate raporUpdate) {
         return new RaporDTO(raporService.updateRapor(id, raporUpdate));
+    }
+
+     @CrossOrigin
+    @DeleteMapping("/api/v1/raporlar/{id}")
+    GenericMessage deleteRapor(@PathVariable long id) {
+        raporService.deleteRapor(id);
+        return new GenericMessage("Rapor Deleted");
     }
 
     @ExceptionHandler(MethodArgumentNotValidException.class)

@@ -10,9 +10,8 @@ import jakarta.validation.constraints.Size;
 public record RaporCreate(
 
         @Size(min = 5, max = 5) String dosyaNo,
-        
-        @NotBlank
-        String selectedLaborant,
+
+        @NotBlank String selectedLaborant,
 
         @NotBlank String hastaIsim,
         @Size(min = 11, max = 11) String hastaKimlik,
@@ -21,8 +20,7 @@ public record RaporCreate(
 
         String taniDetay,
 
-        
-        String selectedDate,
+        @NotBlank String selectedDate,
 
         @Lob String selectedFile)
 
@@ -34,7 +32,7 @@ public record RaporCreate(
         rapor.setDosyaNo(dosyaNo);
         rapor.setHastaIsim(hastaIsim);
         rapor.setHastaKimlik(hastaKimlik);
-        rapor.setHastaTani(hastaTani); 
+        rapor.setHastaTani(hastaTani);
         rapor.setTaniDetay(taniDetay);
         rapor.setSelectedDate(selectedDate);
         rapor.setSelectedFile(selectedFile);
