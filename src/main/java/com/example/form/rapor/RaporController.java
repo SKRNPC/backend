@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.form.error.ApiError;
@@ -64,6 +65,15 @@ public class RaporController {
         raporService.deleteRapor(id);
         return new GenericMessage("Rapor Deleted");
     }
+     @CrossOrigin
+    @GetMapping("/api/v1/raporlar/search")
+    Page<RaporDTO> searchRapors(
+            @RequestParam(name = "hastaIsim", required = false) String hastaIsim,
+            @RequestParam(name = "hastaKimlik", required = false) String hastaKimlik,
+            Pageable page) {
+        return raporService.searchRaporlar(hastaIsim, hastaKimlik, page).map(RaporDTO::new);
+    }
+
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
     ResponseEntity<ApiError> handleMethodArgNotValidEx(MethodArgumentNotValidException exception) {

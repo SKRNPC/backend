@@ -1,7 +1,8 @@
 package com.example.form.rapor;
 
+
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 
-public interface RaporRepository extends JpaRepository<Rapor, Long> {
-
+public interface RaporRepository extends JpaRepository<Rapor, Long>, JpaSpecificationExecutor<Rapor> {
 }

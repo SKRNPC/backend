@@ -5,7 +5,9 @@ import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.domain.Page;
 
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 
 import com.example.form.user.dto.LaborantUpdate;
 
@@ -27,7 +29,7 @@ public class LaborantService {
     }
 
     public Laborant getLaborant(long id) {
-        return userRepository.getReferenceById(id);
+        return userRepository.findById(id).orElseThrow();
     }
 
     public Laborant updateLaborant(long id, LaborantUpdate laborantUpdate) {
@@ -41,6 +43,16 @@ public class LaborantService {
     public void deleteLaborant(long id) {
 
         userRepository.deleteById(id);
+    }
+
+    public Page<Laborant> searchRaporlar(String isim, Pageable page) {
+        Specification<Laborant> spec = Specification.where(null);
+
+        if (StringUtils.hasText(isim)) {
+            spec = spec.and((root, query, builder) ->
+                    builder.like(root.get("isim"), "%" + isim + "%"));
+        }
+        return userRepository.findAll(spec, page);
     }
 
 }

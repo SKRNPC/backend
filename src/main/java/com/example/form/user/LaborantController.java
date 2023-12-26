@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.form.error.ApiError;
@@ -52,7 +53,7 @@ public class LaborantController {
 
     @CrossOrigin
     @GetMapping("/api/v1/laborants/{id}")
-    public LaborantDTO getLaborant(@PathVariable long id) {
+    public LaborantDTO getLaborantById(@PathVariable long id) {
         return new LaborantDTO(laborantService.getLaborant(id));
     }
 
@@ -70,6 +71,13 @@ public class LaborantController {
         return new GenericMessage("Laborant is deleted");
     }
 
+    @CrossOrigin
+    @GetMapping("/api/v1/laborants/search")
+    Page<LaborantDTO> searchRapors(
+            @RequestParam(name = "isim", required = false) String isim,
+            Pageable page) {
+        return laborantService.searchRaporlar(isim, page).map(LaborantDTO::new);
+    }
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
     ResponseEntity<ApiError> handleMethodArgNotValidEx(MethodArgumentNotValidException exception) {

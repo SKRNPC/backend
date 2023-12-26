@@ -4,7 +4,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 
 import com.example.form.file.FileService;
 import com.example.form.rapor.dto.RaporUpdate;
@@ -56,4 +58,21 @@ public class RaporService {
     public void deleteRapor(long id) {
         raporRepository.deleteById(id);
     }
+
+    public Page<Rapor> searchRaporlar(String hastaIsim, String hastaKimlik, Pageable page) {
+        Specification<Rapor> spec = Specification.where(null);
+
+        if (StringUtils.hasText(hastaIsim)) {
+            spec = spec.and((root, query, builder) ->
+                    builder.like(root.get("hastaIsim"), "%" + hastaIsim + "%"));
+        }
+
+        if (StringUtils.hasText(hastaKimlik)) {
+            spec = spec.and((root, query, builder) ->
+                    builder.like(root.get("hastaKimlik"), "%" + hastaKimlik + "%"));
+        }
+
+        return raporRepository.findAll(spec, page);
+    }
+    
 }
