@@ -43,10 +43,16 @@ public class RaporController {
 
     @CrossOrigin
     @GetMapping("/api/v1/raporlar")
-    Page<RaporDTO> getRapors(Pageable page) {
-        return raporService.getRapors(page).map(RaporDTO::new);
+    Page<RaporDTO> getRapors(@RequestParam(required = false) String sortByDate, Pageable page) {
+        if (sortByDate != null && sortByDate.equals("true")) {
+            // Eğer sortByDate parametresi true ise, tarihe göre sıralama yap
+            return raporService.getRaporsSortedByDate(page).map(RaporDTO::new);
+        } else {
+            // Eğer sortByDate parametresi false veya belirtilmemişse, normal sıralama
+            return raporService.getRapors(page).map(RaporDTO::new);
+        }
     }
-
+    
     @CrossOrigin
     @GetMapping("/api/v1/raporlar/{id}")
     RaporDTO getRaporById(@PathVariable long id) {

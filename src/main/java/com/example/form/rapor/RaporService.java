@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
 import com.example.form.file.FileService;
+import com.example.form.rapor.dto.RaporDTO;
 import com.example.form.rapor.dto.RaporUpdate;
 
 @Service
@@ -63,16 +64,20 @@ public class RaporService {
         Specification<Rapor> spec = Specification.where(null);
 
         if (StringUtils.hasText(hastaIsim)) {
-            spec = spec.and((root, query, builder) ->
-                    builder.like(root.get("hastaIsim"), "%" + hastaIsim + "%"));
+            spec = spec.and((root, query, builder) -> builder.like(root.get("hastaIsim"), "%" + hastaIsim + "%"));
         }
 
         if (StringUtils.hasText(hastaKimlik)) {
-            spec = spec.and((root, query, builder) ->
-                    builder.like(root.get("hastaKimlik"), "%" + hastaKimlik + "%"));
+            spec = spec.and((root, query, builder) -> builder.like(root.get("hastaKimlik"), "%" + hastaKimlik + "%"));
         }
 
         return raporRepository.findAll(spec, page);
     }
-    
+
+    public Page<Rapor> getRaporsSortedByDate(Pageable page) {
+
+        return raporRepository.findAllByOrderBySelectedDateAsc(page);
+
+    }
+
 }
