@@ -4,6 +4,9 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.Base64;
 import java.util.UUID;
 
@@ -14,7 +17,7 @@ import org.springframework.stereotype.Service;
 public class FileService {
     
     private final String uploadDir = "uploads/photo";
-
+   
     Tika tika=new Tika();
 
     public String saveBase64StringAsFile(String selectedFile) {
@@ -63,4 +66,21 @@ public class FileService {
             return null;
         }
     }
+
+    public void deleteImage(String selectedFile) {
+    if(selectedFile == null || selectedFile.isEmpty()) return; // If the file path is null or empty, do nothing
+
+    // Assuming the selectedFile is the relative path from the application's root
+    Path pathToFile = Paths.get(selectedFile); // Constructing the full path as a Path object
+
+    try {
+        Files.deleteIfExists(pathToFile); // Attempt to delete the file if it exists
+        System.out.println("File deleted successfully if it existed: " + selectedFile);
+    } catch (IOException e) {
+        System.err.println("Failed to delete the file: " + selectedFile);
+        e.printStackTrace();
+        // Handle the exception as needed
+    }
+}
+    
 }

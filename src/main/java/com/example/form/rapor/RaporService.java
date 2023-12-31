@@ -51,6 +51,7 @@ public class RaporService {
         inDb.setSelectedDate(raporUpdate.selectedDate());
         if (raporUpdate.selectedFile() != null && !raporUpdate.selectedFile().isEmpty()) {
             String fileName = fileService.saveBase64StringAsFile(raporUpdate.selectedFile());
+            fileService.deleteImage(inDb.getSelectedFile());
             inDb.setSelectedFile(fileName); // Yeni resmin yolu ile güncelle
         }
 

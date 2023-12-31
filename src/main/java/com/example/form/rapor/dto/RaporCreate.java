@@ -3,7 +3,7 @@ package com.example.form.rapor.dto;
 import com.example.form.rapor.Rapor;
 import com.example.form.rapor.validation.FileType;
 
-import jakarta.persistence.Lob;
+
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
