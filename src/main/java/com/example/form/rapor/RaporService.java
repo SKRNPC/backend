@@ -11,6 +11,8 @@ import org.springframework.util.StringUtils;
 import com.example.form.file.FileService;
 import com.example.form.rapor.dto.RaporUpdate;
 
+import jakarta.persistence.EntityNotFoundException;
+
 @Service
 public class RaporService {
 
@@ -48,17 +50,12 @@ public class RaporService {
         inDb.setTaniDetay(raporUpdate.taniDetay());
         inDb.setSelectedDate(raporUpdate.selectedDate());
         if (raporUpdate.selectedFile() != null && !raporUpdate.selectedFile().isEmpty()) {
-            try {
-                String fileName = fileService.saveBase64StringAsFile(raporUpdate.selectedFile());
-                inDb.setSelectedFile(fileName);
-            } catch (Exception e) {
-                // Log the error or handle it appropriately
-                e.printStackTrace();
-                // Handle error, maybe return a message indicating failure
-            }
+            String fileName = fileService.saveBase64StringAsFile(raporUpdate.selectedFile());
+            inDb.setSelectedFile(fileName); // Yeni resmin yolu ile güncelle
         }
 
-        return raporRepository.save(inDb);
+        return raporRepository.save(inDb); // Güncellenmiş raporu kaydet
+    
     }
 
     public void deleteRapor(long id) {

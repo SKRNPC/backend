@@ -1,6 +1,7 @@
 package com.example.form.rapor.dto;
 
 import com.example.form.rapor.Rapor;
+import com.example.form.rapor.validation.FileType;
 
 import jakarta.persistence.Lob;
 
@@ -22,7 +23,7 @@ public record RaporCreate(
 
         @NotBlank String selectedDate,
 
-        @Lob String selectedFile)
+        @FileType String selectedFile)
 
 {
 

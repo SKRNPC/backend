@@ -1,5 +1,7 @@
 package com.example.form.rapor.dto;
 
+import com.example.form.rapor.validation.FileType;
+
 import jakarta.persistence.Lob;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
@@ -18,6 +20,7 @@ public record RaporUpdate(
                 
                 @NotBlank String selectedDate,
 
-                @Lob String selectedFile) {
+                @FileType
+                String selectedFile) {
 
 }
