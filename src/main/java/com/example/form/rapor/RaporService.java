@@ -9,7 +9,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
 import com.example.form.file.FileService;
-import com.example.form.rapor.dto.RaporDTO;
 import com.example.form.rapor.dto.RaporUpdate;
 
 @Service
@@ -49,8 +48,14 @@ public class RaporService {
         inDb.setTaniDetay(raporUpdate.taniDetay());
         inDb.setSelectedDate(raporUpdate.selectedDate());
         if (raporUpdate.selectedFile() != null && !raporUpdate.selectedFile().isEmpty()) {
-            String fileName = fileService.saveBase64StringAsFile(raporUpdate.selectedFile());
-            inDb.setSelectedFile(fileName);
+            try {
+                String fileName = fileService.saveBase64StringAsFile(raporUpdate.selectedFile());
+                inDb.setSelectedFile(fileName);
+            } catch (Exception e) {
+                // Log the error or handle it appropriately
+                e.printStackTrace();
+                // Handle error, maybe return a message indicating failure
+            }
         }
 
         return raporRepository.save(inDb);

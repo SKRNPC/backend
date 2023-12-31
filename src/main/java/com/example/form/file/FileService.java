@@ -11,23 +11,28 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class FileService {
+    private final String uploadDir = "uploads/photo";
 
     public String saveBase64StringAsFile(String selectedFile) {
-        String filename = UUID.randomUUID().toString();
-
-        File file = new File(filename);
+        // Yolun ve dosya adının oluşturulması
+        String filename = UUID.randomUUID().toString() + ".jpg"; // Or the appropriate extension
+        File directory = new File(uploadDir);
+        if (!directory.exists()) {
+            directory.mkdirs(); // Eğer dizin yoksa, oluştur
+        }
+        File file = new File(directory, filename);
+        
         try {
+            // Dosya yazma işlemleri
             OutputStream outputStream = new FileOutputStream(file);
             byte[] base64decoded = Base64.getDecoder().decode(selectedFile.split(",")[1]);
             outputStream.write(base64decoded);
             outputStream.close();
-            return filename;
-        } catch (IOException e) {
-
+            return file.getPath(); // Kaydedilen dosyanın yolunu döndür
+        } catch (IOException | ArrayIndexOutOfBoundsException e) {
+            // Hata işleme
             e.printStackTrace();
-
         }
         return null;
     }
-
 }

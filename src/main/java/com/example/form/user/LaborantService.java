@@ -41,7 +41,6 @@ public class LaborantService {
     }
 
     public void deleteLaborant(long id) {
-
         userRepository.deleteById(id);
     }
 
