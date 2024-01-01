@@ -11,8 +11,6 @@ import org.springframework.util.StringUtils;
 import com.example.form.file.FileService;
 import com.example.form.rapor.dto.RaporUpdate;
 
-import jakarta.persistence.EntityNotFoundException;
-
 @Service
 public class RaporService {
 

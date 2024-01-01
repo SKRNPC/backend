@@ -20,12 +20,15 @@ public class FormApplication {
 
 	CommandLineRunner laborantCreator(UserRepository userRepository) {
 		return (args) -> {
+			var userInDB = userRepository.findByLabKimlik("4234151");
+			if (userInDB != null)
+				return;
 			for (var i = 1; i <= 9; i++) {
 				Laborant laborant = new Laborant();
 				laborant.setIsim("user" + i);
 				laborant.setLabKimlik("423415" + i);
 				userRepository.save(laborant);
-				
+
 			}
 		};
 	}
