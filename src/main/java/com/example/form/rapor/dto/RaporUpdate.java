@@ -12,7 +12,6 @@ public record RaporUpdate(
                 @NotBlank String selectedLaborant,
 
                 @NotBlank String hastaIsim,
-                @Size(min = 11, max = 11) String hastaKimlik,
 
                 @NotBlank String hastaTani,
 

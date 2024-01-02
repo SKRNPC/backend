@@ -21,7 +21,6 @@ public class Laborant {
     long id;
 
     String isim;
-
     String labKimlik;
 
     public long getId() {

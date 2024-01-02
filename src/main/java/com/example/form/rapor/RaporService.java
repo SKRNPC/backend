@@ -43,7 +43,6 @@ public class RaporService {
         inDb.setSelectedLaborant(raporUpdate.selectedLaborant());
         inDb.setDosyaNo(raporUpdate.dosyaNo());
         inDb.setHastaIsim(raporUpdate.hastaIsim());
-        inDb.setHastaKimlik(raporUpdate.hastaKimlik());
         inDb.setHastaTani(raporUpdate.hastaTani());
         inDb.setTaniDetay(raporUpdate.taniDetay());
         inDb.setSelectedDate(raporUpdate.selectedDate());

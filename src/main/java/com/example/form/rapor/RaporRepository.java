@@ -9,4 +9,6 @@ import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 public interface RaporRepository extends JpaRepository<Rapor, Long>, JpaSpecificationExecutor<Rapor> {
 
     Page<Rapor> findAllByOrderBySelectedDateAsc(Pageable page);
+
+    Rapor findByHastaKimlik(String value);
 }

@@ -2,8 +2,7 @@ package com.example.form.rapor.dto;
 
 import com.example.form.rapor.Rapor;
 import com.example.form.rapor.validation.FileType;
-
-
+import com.example.form.rapor.validation.UniqueTc;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
@@ -15,7 +14,7 @@ public record RaporCreate(
         @NotBlank String selectedLaborant,
 
         @NotBlank String hastaIsim,
-        @Size(min = 11, max = 11) String hastaKimlik,
+        @Size(min = 11, max = 11) @UniqueTc String hastaKimlik,
 
         @NotBlank String hastaTani,
 

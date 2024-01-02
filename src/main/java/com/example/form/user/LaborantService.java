@@ -37,7 +37,6 @@ public class LaborantService {
         Laborant inDb = getLaborant(id);
 
         inDb.setIsim(laborantUpdate.isim());
-        inDb.setLabKimlik(laborantUpdate.labKimlik());
 
         return userRepository.save(inDb);
     }
