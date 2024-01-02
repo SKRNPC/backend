@@ -3,7 +3,9 @@ package com.example.form.rapor;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.SequenceGenerator;
 import jakarta.persistence.Table;
 
 
@@ -12,7 +14,8 @@ import jakarta.persistence.Table;
 @Table(name = "raporlar")
 public class Rapor {
     @Id
-    @GeneratedValue
+    @SequenceGenerator(name="raporlar_seq", sequenceName="raporlar_SEQ", allocationSize=1)
+    @GeneratedValue(strategy=GenerationType.SEQUENCE, generator="raporlar_seq")
     long id;
 
     String selectedLaborant;

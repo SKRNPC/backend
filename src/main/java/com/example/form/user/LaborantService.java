@@ -13,6 +13,7 @@ import com.example.form.user.dto.LaborantUpdate;
 
 @Service
 public class LaborantService {
+
     @Autowired
     UserRepository userRepository;
 
@@ -37,6 +38,7 @@ public class LaborantService {
 
         inDb.setIsim(laborantUpdate.isim());
         inDb.setLabKimlik(laborantUpdate.labKimlik());
+
         return userRepository.save(inDb);
     }
 
@@ -48,8 +50,7 @@ public class LaborantService {
         Specification<Laborant> spec = Specification.where(null);
 
         if (StringUtils.hasText(isim)) {
-            spec = spec.and((root, query, builder) ->
-                    builder.like(root.get("isim"), "%" + isim + "%"));
+            spec = spec.and((root, query, builder) -> builder.like(root.get("isim"), "%" + isim + "%"));
         }
         return userRepository.findAll(spec, page);
     }

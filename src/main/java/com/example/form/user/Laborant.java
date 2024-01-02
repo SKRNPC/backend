@@ -4,7 +4,9 @@ package com.example.form.user;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.SequenceGenerator;
 import jakarta.persistence.Table;
 import jakarta.persistence.UniqueConstraint;
 
@@ -14,7 +16,8 @@ import jakarta.persistence.UniqueConstraint;
 public class Laborant {
 
     @Id
-    @GeneratedValue
+    @SequenceGenerator(name="laborants_seq", sequenceName="laborants_SEQ", allocationSize=1)
+    @GeneratedValue(strategy=GenerationType.SEQUENCE, generator="laborants_seq")
     long id;
 
     String isim;
