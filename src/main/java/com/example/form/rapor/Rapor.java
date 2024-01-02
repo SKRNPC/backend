@@ -1,6 +1,5 @@
 package com.example.form.rapor;
 
-
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -8,14 +7,12 @@ import jakarta.persistence.Id;
 import jakarta.persistence.SequenceGenerator;
 import jakarta.persistence.Table;
 
-
-
 @Entity
 @Table(name = "raporlar")
 public class Rapor {
     @Id
-    @SequenceGenerator(name="raporlar_seq", sequenceName="raporlar_SEQ", allocationSize=1)
-    @GeneratedValue(strategy=GenerationType.SEQUENCE, generator="raporlar_seq")
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "raporlar_seq_gen")
+    @SequenceGenerator(name = "raporlar_seq_gen", sequenceName = "RAPORLAR_SEQ", allocationSize = 1)
     long id;
 
     String selectedLaborant;
@@ -30,7 +27,6 @@ public class Rapor {
 
     String selectedDate;
 
-    
     String selectedFile;
 
     public String getSelectedFile() {
@@ -88,6 +84,7 @@ public class Rapor {
     public void setHastaKimlik(String hastaKimlik) {
         this.hastaKimlik = hastaKimlik;
     }
+
     public String getSelectedDate() {
         return selectedDate;
     }
@@ -96,8 +93,6 @@ public class Rapor {
         this.selectedDate = selectedDate;
     }
 
-
- 
     public String getSelectedLaborant() {
         return selectedLaborant;
     }
@@ -106,5 +101,4 @@ public class Rapor {
         this.selectedLaborant = selectedLaborant;
     }
 
-    
 }

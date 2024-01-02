@@ -16,8 +16,8 @@ import jakarta.persistence.UniqueConstraint;
 public class Laborant {
 
     @Id
-    @SequenceGenerator(name="laborants_seq", sequenceName="laborants_SEQ", allocationSize=1)
-    @GeneratedValue(strategy=GenerationType.SEQUENCE, generator="laborants_seq")
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "laborants_seq_gen")
+    @SequenceGenerator(name = "laborants_seq_gen", sequenceName = "LABORANTS_SEQ", allocationSize = 1)
     long id;
 
     String isim;
